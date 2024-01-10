@@ -113,23 +113,6 @@ export default function Home({ data }: { data: any }) {
     fetchData();
   }, [endDate]);
 
-  // useEffect(() => {
-  //   if (data.length)
-  //     setMarkerData(
-  //       data.map(
-  //         (position: any) =>
-  //           new window.google.maps.LatLng(
-  //             position.coordinates[0],
-  //             position.coordinates[1]
-  //           )
-  //       )
-  //     );
-  // }, [data]);
-
-  // useEffect(() => {
-  //   console.log(markerData);
-  // }, [markerData]);
-
   const renderCircle = useCallback((magnitude: number) => {
     return;
   }, []);
@@ -138,11 +121,9 @@ export default function Home({ data }: { data: any }) {
   }, [data]);
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <Link href={"/alert"}>alert</Link>
-      <p className="text-xl font-bold">Earthquake occured by alert level</p>
+    <main className={` min-h-screen  p-24 ${inter.className}`}>
+      <p className="text-xl font-bold">Earthquake mapping visualization</p>
+      <p>Filter by date:</p>
       <Datepicker
         selected={startDate}
         startDate={startDate}
