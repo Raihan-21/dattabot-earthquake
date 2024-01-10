@@ -7,7 +7,7 @@ export const Sidebar = () => {
   return (
     <div className="bg-primary w-[200px] text-white">
       <div className="p-4">
-        <p className="pl-4 text-xl font-bold">Earthquake Monitoring</p>
+        <p className="pl-4 text-xl font-bold">Dattabot Earthquake Monitoring</p>
       </div>
       <div className="flex flex-col">
         <Link

@@ -14,7 +14,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Pie, Bar } from "react-chartjs-2";
+import { Pie, Bar, Doughnut } from "react-chartjs-2";
 
 ChartJS.register(
   ArcElement,
@@ -25,7 +25,6 @@ ChartJS.register(
   Legend
 );
 import "react-datepicker/dist/react-datepicker.css";
-import Link from "next/link";
 import FilterCard from "@/components/organisms/FilterCard";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -70,6 +69,7 @@ export default function Home({ data }: { data: any }) {
   const [endDate, setEndDate] = useState(new Date());
   const [maxDate, setMaxDate] = useState(new Date());
 
+  // Fetch data function
   const fetchData = useCallback(async () => {
     if (!endDate) return;
     setIsLoading(true);
@@ -99,6 +99,8 @@ export default function Home({ data }: { data: any }) {
       setIsLoading(false);
     }
   }, [startDate, endDate, pieData]);
+
+  // Update date function
   const selectDate = useCallback(
     (dates: any) => {
       const [start, end] = dates;
@@ -108,6 +110,7 @@ export default function Home({ data }: { data: any }) {
     [maxDate]
   );
 
+  // Calculate max date range
   const calculateMaxDate = useCallback(() => {
     setMaxDate(new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000));
   }, [startDate]);
@@ -115,9 +118,6 @@ export default function Home({ data }: { data: any }) {
   useEffect(() => {
     calculateMaxDate();
   }, [startDate]);
-  // useEffect(() => {
-  //   fetchData();
-  // }, [endDate]);
 
   return (
     <main className={`min-h-screen bg-white p-24 ${inter.className}`}>
@@ -128,7 +128,8 @@ export default function Home({ data }: { data: any }) {
         <>
           <div className="mb-4">
             <p className="text-lg font-bold">
-              Filter by date <span className="text-xs">(Max 30 days)</span>
+              Filter by date{" "}
+              <span className="text-xs font-normal">(Max 30 days)</span>
             </p>
             <Datepicker
               selected={startDate}
@@ -139,6 +140,7 @@ export default function Home({ data }: { data: any }) {
               selectsRange
               // inline
               shouldCloseOnSelect
+              wrapperClassName="date-picker"
             />
           </div>
           <div className="flex">
@@ -152,7 +154,13 @@ export default function Home({ data }: { data: any }) {
         </>
       </FilterCard>
 
-      {isLoading ? <p>Loading...</p> : <Bar data={pieData} />}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="max-w-[500px] w-full mx-auto">
+          <Doughnut data={pieData} title="Alert level" />
+        </div>
+      )}
     </main>
   );
 }

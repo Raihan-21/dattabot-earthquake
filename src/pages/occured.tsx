@@ -95,7 +95,7 @@ export default function Home({ serverData }: { serverData: any }) {
   const [endDate, setEndDate] = useState(new Date());
   const [maxDate, setMaxDate] = useState(new Date());
 
-  // Fetch function on every date change
+  // Fetch data function
   const fetchData = useCallback(async () => {
     if (!endDate) return;
     setIsLoading(true);
@@ -154,6 +154,7 @@ export default function Home({ serverData }: { serverData: any }) {
     [maxDate]
   );
 
+  // Calculate max date range
   const calculateMaxDate = useCallback(() => {
     setMaxDate(new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000));
   }, [startDate]);
@@ -161,9 +162,6 @@ export default function Home({ serverData }: { serverData: any }) {
   useEffect(() => {
     calculateMaxDate();
   }, [startDate]);
-  // useEffect(() => {
-  //   fetchData();
-  // }, [endDate]);
   return (
     <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
@@ -173,7 +171,8 @@ export default function Home({ serverData }: { serverData: any }) {
         <>
           <div className="mb-4">
             <p className="text-lg font-bold">
-              Filter by date <span className="text-xs">(Max 7 days)</span>
+              Filter by date{" "}
+              <span className="text-xs font-normal">(Max 7 days)</span>
             </p>
             <Datepicker
               selected={startDate}
@@ -184,6 +183,7 @@ export default function Home({ serverData }: { serverData: any }) {
               selectsRange
               // inline
               shouldCloseOnSelect
+              wrapperClassName="date-picker"
             />{" "}
           </div>
           <div className="flex">
@@ -199,10 +199,8 @@ export default function Home({ serverData }: { serverData: any }) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-full  h-[200px]">
-          <div className="w-full">
-            <Bar data={barData} />
-          </div>
+        <div className="w-full mx-auto">
+          <Bar data={barData} />
         </div>
       )}
     </main>
