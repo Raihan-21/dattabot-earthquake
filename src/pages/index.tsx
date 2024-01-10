@@ -5,30 +5,7 @@ import { axiosInstance } from "@/axios";
 
 import Datepicker from "react-datepicker";
 
-import {
-  Chart as ChartJS,
-  ArcElement,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Pie, Bar } from "react-chartjs-2";
-
-ChartJS.register(
-  ArcElement,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-);
 import "react-datepicker/dist/react-datepicker.css";
-import { Wrapper } from "@googlemaps/react-wrapper";
-import MapComponent from "@/components/organisms/MapComponent";
-import Link from "next/link";
-// import Marker from "@/components/organisms/Marker";
 import {
   APIProvider,
   Map,
@@ -121,23 +98,27 @@ export default function Home({ data }: { data: any }) {
   }, [data]);
 
   return (
-    <main className={` min-h-screen  p-24 ${inter.className}`}>
-      <p className="text-xl font-bold">Earthquake mapping visualization</p>
-      <p>Filter by date:</p>
-      <Datepicker
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        maxDate={maxDate}
-        onChange={selectDate}
-        selectsRange
-        // inline
-        shouldCloseOnSelect
-      />
+    <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
+      <p className="text-[30px] font-bold">Earthquake mapping visualization</p>
+      <div className="mb-6">
+        <p className="text-lg">
+          Filter by date <span className="text-xs">(Max 30 days)</span>
+        </p>
+        <Datepicker
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          maxDate={maxDate}
+          onChange={selectDate}
+          selectsRange
+          // inline
+          shouldCloseOnSelect
+        />
+      </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-full max-w-[500px] h-[200px]">
+        <div className="w-full  h-[200px]">
           <APIProvider apiKey={process.env.NEXT_PUBLIC_API_KEY!}>
             {isLoading ? (
               <p>Loading...</p>

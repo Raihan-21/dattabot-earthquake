@@ -123,21 +123,25 @@ export default function Home({ data }: { data: any }) {
   }, [pieData]);
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <Link href={"/"}>home</Link>
-      <p className="text-xl font-bold">Earthquake occured by alert level</p>
-      <Datepicker
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        maxDate={maxDate}
-        onChange={selectDate}
-        selectsRange
-        // inline
-        shouldCloseOnSelect
-      />
+    <main className={`min-h-screen bg-white p-24 ${inter.className}`}>
+      <p className="text-[30px] font-bold mb-4">
+        Earthquake occured by alert level
+      </p>
+      <div className="mb-6">
+        <p className="text-lg">
+          Filter by date <span className="text-xs">(Max 30 days)</span>
+        </p>
+        <Datepicker
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          maxDate={maxDate}
+          onChange={selectDate}
+          selectsRange
+          // inline
+          shouldCloseOnSelect
+        />
+      </div>
       {isLoading ? <p>Loading...</p> : <Bar data={pieData} />}
     </main>
   );

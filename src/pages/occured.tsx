@@ -81,7 +81,8 @@ export default function Home({ serverData }: { serverData: any }) {
       {
         label: "Total occured",
         data: serverData.map((data: any) => data.count),
-        backgroundColor: pieLabels,
+        backgroundColor: "rgba(255, 99, 132, 0.4)",
+        borderColor: "red",
       },
     ],
   });
@@ -163,25 +164,32 @@ export default function Home({ serverData }: { serverData: any }) {
     fetchData();
   }, [endDate]);
   return (
-    <main className={` min-h-screen  p-24 ${inter.className}`}>
-      <p className="text-xl font-bold">Total occuring earthquake (by days)</p>
-      <p>Filter by date:</p>
-      <Datepicker
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        maxDate={maxDate}
-        onChange={selectDate}
-        selectsRange
-        // inline
-        shouldCloseOnSelect
-      />
+    <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
+      <p className="text-[30px] font-bold mb-4">
+        Total occuring earthquake (by day)
+      </p>
+      <div className="mb-6">
+        <p className="text-lg">
+          Filter by date <span className="text-xs">(Max 7 days)</span>
+        </p>
+        <Datepicker
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          maxDate={maxDate}
+          onChange={selectDate}
+          selectsRange
+          // inline
+          shouldCloseOnSelect
+        />
+      </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-full max-w-[500px] h-[200px]">
-          {" "}
-          <Bar data={barData} />
+        <div className="w-full  h-[200px]">
+          <div className="w-full">
+            <Bar data={barData} />
+          </div>
         </div>
       )}
     </main>
