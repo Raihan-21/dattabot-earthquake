@@ -199,7 +199,7 @@ export default function Home({ serverData }: { serverData: any }) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="w-full mx-auto">
+        <div className="w-full mx-auto flex justify-center">
           <Bar data={barData} />
         </div>
       )}

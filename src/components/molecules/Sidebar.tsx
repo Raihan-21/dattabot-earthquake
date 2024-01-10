@@ -5,7 +5,7 @@ import React from "react";
 export const Sidebar = () => {
   const router = useRouter();
   return (
-    <div className="bg-primary w-[200px] text-white">
+    <div className="bg-primary w-[250px] text-white">
       <div className="p-4">
         <p className="pl-4 text-xl font-bold">Dattabot Earthquake Monitoring</p>
       </div>

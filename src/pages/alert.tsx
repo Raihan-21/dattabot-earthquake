@@ -157,7 +157,7 @@ export default function Home({ data }: { data: any }) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="max-w-[500px] w-full mx-auto">
+        <div className="max-w-[500px] w-full mx-auto flex justify-center">
           <Doughnut data={pieData} title="Alert level" />
         </div>
       )}
