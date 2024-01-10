@@ -333,12 +333,13 @@ export default function Home({
               ) : (
                 <Map center={{ lat: 41.850033, lng: -87.6500523 }} zoom={2}>
                   {locationList.length &&
-                    locationList.map((location: any) => (
+                    locationList.map((location: any, i) => (
                       <Marker
                         position={{
                           lat: location.geometry.coordinates[1],
                           lng: location.geometry.coordinates[0],
                         }}
+                        key={i}
                       />
                     ))}
                 </Map>
