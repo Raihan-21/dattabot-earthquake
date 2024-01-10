@@ -35,7 +35,11 @@ export const getServerSideProps = async () => {
   const responses = await Promise.all(
     pieLabels.map((label) =>
       axiosInstance.get(
-        `/query?format=geojson&alertlevel=${label}&starttime=2023-02-01`
+        `/query?format=geojson&alertlevel=${label}&starttime=${new Date(
+          new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+        )
+          .toISOString()
+          .slice(0, 10)}`
       )
     )
   );
@@ -64,7 +68,7 @@ export default function Home({ data }: { data: any }) {
   });
 
   const [startDate, setStartDate] = useState(
-    new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)
+    new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000)
   );
   const [endDate, setEndDate] = useState(new Date());
   const [maxDate, setMaxDate] = useState(new Date());
@@ -112,7 +116,7 @@ export default function Home({ data }: { data: any }) {
 
   // Calculate max date range
   const calculateMaxDate = useCallback(() => {
-    setMaxDate(new Date(startDate.getTime() + 30 * 24 * 60 * 60 * 1000));
+    setMaxDate(new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000));
   }, [startDate]);
 
   useEffect(() => {
@@ -127,21 +131,25 @@ export default function Home({ data }: { data: any }) {
       <FilterCard>
         <>
           <div className="mb-4">
-            <p className="text-lg font-bold">
-              Filter by date{" "}
-              <span className="text-xs font-normal">(Max 30 days)</span>
-            </p>
-            <Datepicker
-              selected={startDate}
-              startDate={startDate}
-              endDate={endDate}
-              maxDate={maxDate}
-              onChange={selectDate}
-              selectsRange
-              // inline
-              shouldCloseOnSelect
-              wrapperClassName="date-picker"
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-3">
+              <div>
+                <p className="text-lg font-bold">
+                  Filter by date{" "}
+                  <span className="text-xs font-normal">(Max 7 days)</span>
+                </p>
+                <Datepicker
+                  selected={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  maxDate={maxDate}
+                  onChange={selectDate}
+                  selectsRange
+                  // inline
+                  shouldCloseOnSelect
+                  wrapperClassName="date-picker"
+                />
+              </div>
+            </div>
           </div>
           <div className="flex">
             <button

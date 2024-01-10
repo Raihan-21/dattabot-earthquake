@@ -170,21 +170,25 @@ export default function Home({ serverData }: { serverData: any }) {
       <FilterCard>
         <>
           <div className="mb-4">
-            <p className="text-lg font-bold">
-              Filter by date{" "}
-              <span className="text-xs font-normal">(Max 7 days)</span>
-            </p>
-            <Datepicker
-              selected={startDate}
-              startDate={startDate}
-              endDate={endDate}
-              maxDate={maxDate}
-              onChange={selectDate}
-              selectsRange
-              // inline
-              shouldCloseOnSelect
-              wrapperClassName="date-picker"
-            />{" "}
+            <div className="grid grid-cols-1 lg:grid-cols-3">
+              <div>
+                <p className="text-lg font-bold">
+                  Filter by date{" "}
+                  <span className="text-xs font-normal">(Max 7 days)</span>
+                </p>
+                <Datepicker
+                  selected={startDate}
+                  startDate={startDate}
+                  endDate={endDate}
+                  maxDate={maxDate}
+                  onChange={selectDate}
+                  selectsRange
+                  // inline
+                  shouldCloseOnSelect
+                  wrapperClassName="date-picker"
+                />
+              </div>
+            </div>
           </div>
           <div className="flex">
             <button

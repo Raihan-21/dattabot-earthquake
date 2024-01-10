@@ -259,7 +259,7 @@ export default function Home({
         Earthquake mapping visualization
       </p>
       <div className="mb-6 p-4 rounded-md filter__container">
-        <div className="flex flex-wrap gap-y-4 gap-x-6 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-4 gap-x-6 mb-4">
           <div>
             <p className="text-lg font-bold">
               Filter by date{" "}
@@ -278,7 +278,7 @@ export default function Home({
               wrapperClassName="date-picker"
             />
           </div>
-          <div>
+          <div className="col-span-2">
             <p className="text-lg font-bold">
               Search in certain area{" "}
               <span className="text-xs font-normal">
@@ -290,7 +290,7 @@ export default function Home({
                 <p>Latitude</p>
                 <input
                   type="number"
-                  className="border-2 border-black py-1 px-2 rounded-md"
+                  className="border-2 border-black py-1 px-2 rounded-md w-full"
                   onChange={(e) => setLatitude(e.target.value)}
                 />
               </div>
@@ -298,7 +298,7 @@ export default function Home({
                 <p>Longitude</p>
                 <input
                   type="number"
-                  className="border-2 border-black py-1 px-2 rounded-md"
+                  className="border-2 border-black py-1 px-2 rounded-md w-full"
                   onChange={(e) => setLongitude(e.target.value)}
                 />
               </div>{" "}
@@ -306,7 +306,7 @@ export default function Home({
                 <p>Max radius</p>
                 <input
                   type="number"
-                  className="border-2 border-black py-1 px-2 rounded-md"
+                  className="border-2 border-black py-1 px-2 rounded-md w-full"
                   onChange={(e) => setMaxRadius(Number(e.target.value))}
                 />
               </div>

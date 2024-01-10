@@ -25,10 +25,14 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-.date-picker input {
-  border: 2px solid black;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
+.date-picker {
+  width: 100%;
+  input {
+    border: 2px solid black;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    width: 100%;
+  }
 }
 .filter__container {
   box-shadow: 1px 1px 5px 1px lightgray;

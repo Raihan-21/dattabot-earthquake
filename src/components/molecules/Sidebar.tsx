@@ -17,6 +17,14 @@ export const Sidebar = () => {
           }`}
         >
           Home
+        </Link>{" "}
+        <Link
+          href={"/occured"}
+          className={`p-4 ${
+            router.pathname === "/occured" ? "bg-secondary font-bold" : ""
+          }`}
+        >
+          Total occured
         </Link>
         <Link
           href={"/alert"}
@@ -25,14 +33,6 @@ export const Sidebar = () => {
           }`}
         >
           Alert Level
-        </Link>
-        <Link
-          href={"/occured"}
-          className={`p-4 ${
-            router.pathname === "/occured" ? "bg-secondary font-bold" : ""
-          }`}
-        >
-          Total occured
         </Link>
       </div>
     </div>
