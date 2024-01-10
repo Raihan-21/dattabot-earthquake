@@ -24,6 +24,7 @@ ChartJS.register(
   Legend
 );
 import "react-datepicker/dist/react-datepicker.css";
+import FilterCard from "@/components/organisms/FilterCard";
 const inter = Inter({ subsets: ["latin"] });
 
 const pieLabels = ["green", "yellow", "orange", "red"];
@@ -160,29 +161,41 @@ export default function Home({ serverData }: { serverData: any }) {
   useEffect(() => {
     calculateMaxDate();
   }, [startDate]);
-  useEffect(() => {
-    fetchData();
-  }, [endDate]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [endDate]);
   return (
     <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
         Total occuring earthquake (by day)
       </p>
-      <div className="mb-6">
-        <p className="text-lg">
-          Filter by date <span className="text-xs">(Max 7 days)</span>
-        </p>
-        <Datepicker
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          maxDate={maxDate}
-          onChange={selectDate}
-          selectsRange
-          // inline
-          shouldCloseOnSelect
-        />
-      </div>
+      <FilterCard>
+        <>
+          <div className="mb-4">
+            <p className="text-lg font-bold">
+              Filter by date <span className="text-xs">(Max 7 days)</span>
+            </p>
+            <Datepicker
+              selected={startDate}
+              startDate={startDate}
+              endDate={endDate}
+              maxDate={maxDate}
+              onChange={selectDate}
+              selectsRange
+              // inline
+              shouldCloseOnSelect
+            />{" "}
+          </div>
+          <div className="flex">
+            <button
+              onClick={fetchData}
+              className="bg-green-700 py-2 px-4 rounded-md text-white"
+            >
+              Filter
+            </button>
+          </div>
+        </>
+      </FilterCard>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

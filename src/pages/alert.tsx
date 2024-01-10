@@ -26,6 +26,7 @@ ChartJS.register(
 );
 import "react-datepicker/dist/react-datepicker.css";
 import Link from "next/link";
+import FilterCard from "@/components/organisms/FilterCard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -114,34 +115,43 @@ export default function Home({ data }: { data: any }) {
   useEffect(() => {
     calculateMaxDate();
   }, [startDate]);
-  useEffect(() => {
-    fetchData();
-  }, [endDate]);
-
-  useEffect(() => {
-    console.log(pieData);
-  }, [pieData]);
+  // useEffect(() => {
+  //   fetchData();
+  // }, [endDate]);
 
   return (
     <main className={`min-h-screen bg-white p-24 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
         Earthquake occured by alert level
       </p>
-      <div className="mb-6">
-        <p className="text-lg">
-          Filter by date <span className="text-xs">(Max 30 days)</span>
-        </p>
-        <Datepicker
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          maxDate={maxDate}
-          onChange={selectDate}
-          selectsRange
-          // inline
-          shouldCloseOnSelect
-        />
-      </div>
+      <FilterCard>
+        <>
+          <div className="mb-4">
+            <p className="text-lg font-bold">
+              Filter by date <span className="text-xs">(Max 30 days)</span>
+            </p>
+            <Datepicker
+              selected={startDate}
+              startDate={startDate}
+              endDate={endDate}
+              maxDate={maxDate}
+              onChange={selectDate}
+              selectsRange
+              // inline
+              shouldCloseOnSelect
+            />
+          </div>
+          <div className="flex">
+            <button
+              onClick={fetchData}
+              className="bg-green-700 py-2 px-4 rounded-md text-white"
+            >
+              Filter
+            </button>
+          </div>
+        </>
+      </FilterCard>
+
       {isLoading ? <p>Loading...</p> : <Bar data={pieData} />}
     </main>
   );
