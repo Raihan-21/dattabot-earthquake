@@ -27,7 +27,33 @@ import "react-datepicker/dist/react-datepicker.css";
 import FilterCard from "@/components/organisms/FilterCard";
 const inter = Inter({ subsets: ["latin"] });
 
-const pieLabels = ["green", "yellow", "orange", "red"];
+// Group all data by day
+const groupDatabyDay = (array: []) => {
+  const dataList = array.map((data: any) => {
+    return new Date(data.properties.time);
+  });
+
+  let groupedArray: any = [[]];
+  let groupedIndex = 0;
+  dataList.forEach((data: any, i: number) => {
+    groupedArray[groupedIndex].push(data);
+
+    // If current element date is different with current group date, create new array
+    if (
+      data.toISOString().slice(0, 10) !==
+      groupedArray[groupedIndex][0].toISOString().slice(0, 10)
+    ) {
+      groupedIndex++;
+      groupedArray[groupedIndex] = [];
+    }
+  });
+
+  // Convert data into time and total occuring per day
+  return groupedArray.map((array: any) => ({
+    time: array[0].toString(),
+    count: array.length,
+  }));
+};
 
 export const getServerSideProps = async () => {
   try {
@@ -39,30 +65,7 @@ export const getServerSideProps = async () => {
         .slice(0, 10)}&orderby=time-asc`
     );
 
-    const dataList = responses.data.features.map((data: any) => {
-      return new Date(data.properties.time);
-    });
-
-    // Group data by day
-    let groupedArray: any = [[]];
-    let groupedIndex = 0;
-    dataList.forEach((data: any, i: number) => {
-      groupedArray[groupedIndex].push(data);
-      if (
-        data.toISOString().slice(0, 10) !==
-        groupedArray[groupedIndex][0].toISOString().slice(0, 10)
-      ) {
-        groupedIndex++;
-        groupedArray[groupedIndex] = [];
-      }
-    });
-
-    // Convert data into time and total occuring per day only
-    groupedArray = groupedArray.map((array: any) => ({
-      time: array[0].toString(),
-      count: array.length,
-    }));
-
+    const groupedArray = groupDatabyDay(responses.data.features);
     return {
       props: {
         serverData: groupedArray,
@@ -82,8 +85,8 @@ export default function Home({ serverData }: { serverData: any }) {
       {
         label: "Total occured",
         data: serverData.map((data: any) => data.count),
-        backgroundColor: "rgba(255, 99, 132, 0.4)",
-        borderColor: "red",
+        backgroundColor: "rgb(34, 206, 137)",
+        borderColor: "",
       },
     ],
   });
@@ -107,25 +110,9 @@ export default function Home({ serverData }: { serverData: any }) {
           .toISOString()
           .slice(0, 10)}&orderby=time-asc`
       );
-      const dateList = res.data.features.map((data: any) => {
-        return new Date(data.properties.time);
-      });
-      let groupedArray: any = [[]];
-      let groupedIndex = 0;
-      dateList.forEach((data: any, i: number) => {
-        groupedArray[groupedIndex].push(data);
-        if (
-          data.toISOString().slice(0, 10) !==
-          groupedArray[groupedIndex][0].toISOString().slice(0, 10)
-        ) {
-          groupedIndex++;
-          groupedArray[groupedIndex] = [];
-        }
-      });
-      groupedArray = groupedArray.map((array: any) => ({
-        time: array[0].toString(),
-        count: array.length,
-      }));
+
+      const groupedArray = groupDatabyDay(res.data.features);
+
       setbarData((prevState: any) => ({
         ...prevState,
         labels: groupedArray.map((data: any) =>
@@ -145,14 +132,11 @@ export default function Home({ serverData }: { serverData: any }) {
   }, [startDate, endDate]);
 
   // Update date function
-  const selectDate = useCallback(
-    (dates: any) => {
-      const [start, end] = dates;
-      setStartDate(start);
-      setEndDate(end);
-    },
-    [maxDate]
-  );
+  const selectDate = useCallback((dates: any) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  }, []);
 
   // Calculate max date range
   const calculateMaxDate = useCallback(() => {
@@ -163,7 +147,7 @@ export default function Home({ serverData }: { serverData: any }) {
     calculateMaxDate();
   }, [startDate]);
   return (
-    <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
+    <main className={` min-h-screen bg-white p-10 lg:p-18 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
         Total occuring earthquake (by day)
       </p>

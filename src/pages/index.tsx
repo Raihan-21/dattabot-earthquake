@@ -124,7 +124,7 @@ export default function Home({
         label: "Total Occured",
         data: categories.map((category: category) => category.count),
         backgroundColor: [
-          "rgb(78, 221, 78)",
+          "rgb(34, 206, 137)",
           "rgb(54, 162, 235)",
           "rgb(255, 205, 86)",
           "rgb(255, 100, 50)",
@@ -211,7 +211,6 @@ export default function Home({
       categoriesList[2].count = groupedArray[2].length;
       categoriesList[3].count = groupedArray[3].length;
       categoriesList[4].count = groupedArray[4].length;
-      console.log(dataList);
       setPieData((prevState) => ({
         ...prevState,
         datasets: [
@@ -228,14 +227,11 @@ export default function Home({
   }, [startDate, endDate, latitude, longitude, maxRadius]);
 
   // Update date function
-  const selectDate = useCallback(
-    (dates: any) => {
-      const [start, end] = dates;
-      setStartDate(start);
-      setEndDate(end);
-    },
-    [maxDate]
-  );
+  const selectDate = useCallback((dates: any) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  }, []);
 
   // Calculate max date range
   const calculateMaxDate = useCallback(() => {
@@ -246,15 +242,12 @@ export default function Home({
     calculateMaxDate();
   }, [startDate]);
 
-  const renderCircle = useCallback((magnitude: number) => {
-    return;
-  }, []);
   useEffect(() => {
     setLocationList(data);
     setCategoriesData(categories);
   }, [data]);
   return (
-    <main className={` min-h-screen bg-white p-24 ${inter.className}`}>
+    <main className={` min-h-screen bg-white p-10 lg:p-18 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
         Earthquake mapping visualization
       </p>
@@ -346,7 +339,7 @@ export default function Home({
               )}
             </APIProvider>
           </div>
-          <p className="text-[30px] font-bold mb-4">
+          <p className="text-[25px] font-bold mb-4">
             Earthquake chart based on magnitude power
           </p>
           <div className="w-full mx-auto max-w-[500px]">

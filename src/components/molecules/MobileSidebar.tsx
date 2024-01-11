@@ -13,7 +13,7 @@ const MobileSidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
   return (
-    <div className="w-full  absolute top-0 flex justify-end px-4">
+    <div className="w-full  absolute top-2 flex justify-end px-4">
       <Button onClick={onOpen}>Menu</Button>
       <Drawer isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />

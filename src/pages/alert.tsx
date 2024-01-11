@@ -105,14 +105,11 @@ export default function Home({ data }: { data: any }) {
   }, [startDate, endDate, pieData]);
 
   // Update date function
-  const selectDate = useCallback(
-    (dates: any) => {
-      const [start, end] = dates;
-      setStartDate(start);
-      setEndDate(end);
-    },
-    [maxDate]
-  );
+  const selectDate = useCallback((dates: any) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  }, []);
 
   // Calculate max date range
   const calculateMaxDate = useCallback(() => {
@@ -124,7 +121,7 @@ export default function Home({ data }: { data: any }) {
   }, [startDate]);
 
   return (
-    <main className={`min-h-screen bg-white p-24 ${inter.className}`}>
+    <main className={`min-h-screen bg-white p-10 lg:p-18 ${inter.className}`}>
       <p className="text-[30px] font-bold mb-4">
         Earthquake occured by alert level
       </p>

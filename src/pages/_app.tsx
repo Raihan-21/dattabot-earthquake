@@ -8,13 +8,18 @@ import { useEffect, useState } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isMobile, setIsMobile] = useState(false);
+
+  const checkDeviceWidth = () => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+      return;
+    }
+    setIsMobile(false);
+  };
   useEffect(() => {
+    checkDeviceWidth();
     window.addEventListener("resize", () => {
-      if (window.innerWidth < 800) {
-        setIsMobile(true);
-        return;
-      }
-      setIsMobile(false);
+      checkDeviceWidth();
     });
   }, []);
 
