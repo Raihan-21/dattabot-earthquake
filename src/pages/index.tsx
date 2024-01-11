@@ -324,7 +324,7 @@ export default function Home({
               {isLoading ? (
                 <p>Loading...</p>
               ) : (
-                <Map center={{ lat: 41.850033, lng: -87.6500523 }} zoom={2}>
+                <Map center={{ lat: 0.175, lng: 130.8283 }} zoom={3}>
                   {locationList.length &&
                     locationList.map((location: any, i) => (
                       <Marker
