@@ -159,8 +159,8 @@ export default function Home({
     setIsLoading(true);
     try {
       const res = await axiosInstance.get(
-        `/query?format=geojson&latitude=${latitude}&longitude=${longitude}&maxradiuskm=${
-          maxRadius ? maxRadius : 20001.6
+        `/query?format=geojson&latitude=${latitude}&longitude=${longitude}${
+          maxRadius ? `&maxradiuskm=${maxRadius}` : ""
         }&starttime=${startDate.toISOString().slice(0, 10)}&endtime=${endDate
           .toISOString()
           .slice(0, 10)}`
